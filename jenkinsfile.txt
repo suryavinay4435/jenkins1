@@ -1,0 +1,28 @@
+pipeline {
+    agent any
+
+    tools {
+        maven "maven"
+    }
+
+    stages {
+        stage('code clone') {
+            steps {
+			
+               git 'https://github.com/suryavinay4435/vinaykumar.git'
+            }
+        }
+		stage('code compile') {
+            steps {
+			mvn 'compile'
+               
+            }
+        }
+		stage('code validate') {
+            steps {
+			mvn 'validate'
+               
+            }
+        }
+    }
+}

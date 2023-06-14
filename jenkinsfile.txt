@@ -2,27 +2,46 @@ pipeline {
     agent any
 
     tools {
-        maven "maven"
+	maven 'maven'
+      
     }
 
     stages {
         stage('code clone') {
             steps {
-			
-               git 'https://github.com/suryavinay4435/vinaykumar.git'
+			git credentialsId: 'github', url: 'https://github.com/kartikeyapro/ks.git'
+                
             }
-        }
-		stage('code compile') {
+            }
+			stage('code clean') {
             steps {
-			mvn 'compile'
-               
+			sh 'mvn clean'
+                
             }
-        }
-		stage('code validate') {
+            }
+			stage('code validate') {
             steps {
-			mvn 'validate'
-               
+			sh 'mvn validate'
+                
             }
-        }
-    }
-}
+            }
+			stage('code compile') {
+            steps {
+			sh 'mvn compile'
+                
+            }
+            }
+			stage('code test') {
+            steps {
+			sh 'mvn test'
+                
+            }
+            }
+			stage('code package') {
+            steps {
+			sh 'mvn package'
+                
+            }
+            }
+         }
+      }
